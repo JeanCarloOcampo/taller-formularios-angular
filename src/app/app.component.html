@@ -1,0 +1,79 @@
+<div class="container">
+  <h2>Formulario de Registro</h2>
+
+  <form [formGroup]="formularioRegistro" (ngSubmit)="alEnviar()">
+    
+    <div class="form-group">
+      <label>Nombre completo:</label>
+      <input type="text" formControlName="nombreCompleto">
+      <div *ngIf="formularioRegistro.get('nombreCompleto')?.touched && formularioRegistro.get('nombreCompleto')?.invalid" class="error">
+        <small *ngIf="formularioRegistro.get('nombreCompleto')?.errors?.['required']">El nombre es obligatorio.</small>
+        <small *ngIf="formularioRegistro.get('nombreCompleto')?.errors?.['minlength']">Debe tener al menos 3 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Correo electrónico:</label>
+      <input type="email" formControlName="correo">
+      <div *ngIf="formularioRegistro.get('correo')?.touched && formularioRegistro.get('correo')?.invalid" class="error">
+        <small *ngIf="formularioRegistro.get('correo')?.errors?.['required']">El correo es obligatorio.</small>
+        <small *ngIf="formularioRegistro.get('correo')?.errors?.['email']">Ingrese un formato de correo válido.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Nombre de usuario:</label>
+      <input type="text" formControlName="nombreUsuario">
+      <div *ngIf="formularioRegistro.get('nombreUsuario')?.touched && formularioRegistro.get('nombreUsuario')?.invalid" class="error">
+        <small *ngIf="formularioRegistro.get('nombreUsuario')?.errors?.['required']">El usuario es obligatorio.</small>
+        <small *ngIf="formularioRegistro.get('nombreUsuario')?.errors?.['pattern']">Solo letras, números y guión bajo.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Contraseña:</label>
+      <input type="password" formControlName="contrasena">
+      <div *ngIf="formularioRegistro.get('contrasena')?.touched && formularioRegistro.get('contrasena')?.invalid" class="error">
+        <small *ngIf="formularioRegistro.get('contrasena')?.errors?.['required']">La contraseña es obligatoria.</small>
+        <small *ngIf="formularioRegistro.get('contrasena')?.errors?.['minlength']">Mínimo 8 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+        <label>Confirmar contraseña:</label>
+        <input type="password" formControlName="confirmarContrasena">
+        <div *ngIf="formularioRegistro.get('confirmarContrasena')?.touched && formularioRegistro.get('confirmarContrasena')?.invalid" class="error">
+            <small *ngIf="formularioRegistro.get('confirmarContrasena')?.errors?.['required']">Debe confirmar la contraseña.</small>
+            <small *ngIf="formularioRegistro.get('confirmarContrasena')?.errors?.['noCoinciden']">Las contraseñas no coinciden.</small>
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label>Edad:</label>
+      <input type="number" formControlName="edad">
+      <div *ngIf="formularioRegistro.get('edad')?.touched && formularioRegistro.get('edad')?.invalid" class="error">
+        <small *ngIf="formularioRegistro.get('edad')?.errors?.['required']">La edad es obligatoria.</small>
+        <small *ngIf="formularioRegistro.get('edad')?.errors?.['min'] || formularioRegistro.get('edad')?.errors?.['max']">Debes tener entre 15 y 90 años.</small>
+      </div>
+    </div>
+
+    <div class="form-group checkbox">
+      <label>
+        <input type="checkbox" formControlName="terminos"> Acepto términos y condiciones
+      </label>
+      <div *ngIf="formularioRegistro.get('terminos')?.touched && formularioRegistro.get('terminos')?.invalid" class="error">
+        <small>Debe aceptar los términos y condiciones.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="formularioRegistro.invalid">Registrar</button>
+  </form>
+
+  <div *ngIf="datosResumen" class="resumen">
+    <h3>¡Registro Exitoso!</h3>
+    <p><strong>Nombre:</strong> {{ datosResumen.nombreCompleto }}</p>
+    <p><strong>Correo:</strong> {{ datosResumen.correo }}</p>
+    <p><strong>Usuario:</strong> {{ datosResumen.nombreUsuario }}</p>
+    <p><strong>Edad:</strong> {{ datosResumen.edad }}</p>
+  </div>
+</div>
